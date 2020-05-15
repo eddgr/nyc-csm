@@ -1,4 +1,4 @@
-# NYC Chinese Supermarket (NYC CSM)
+# NYC Chinese Supermarkets (NYC CSM)
 Data Source: https://docs.google.com/spreadsheets/d/1zcMeOqeNeX0aeY807KESo2Ytq3sIaeCiKWfWOXRfbDQ/edit?fbclid=IwAR15BNbiFEnb8vKkaTBaESp6GbmOGNRveWioTBO6ZyNjoXK5aAyyG5vXqS0#gid=0
 
 I've been using the Google Sheet to keep track of Chinese supermarkets that are open within NYC and wanted to share the information with my mom.
