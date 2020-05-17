@@ -18,7 +18,7 @@ def _envget(key, default=None):
 
 
 def create_cred():
-    with open('credentials.json', 'w') as cred_file:
+    with open('google-credentials.json', 'w') as cred_file:
         cred_dict = defaultdict()
         for key in CRED_KEYS:
             cred_dict[key] = _envget(key)

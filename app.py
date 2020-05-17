@@ -1,4 +1,5 @@
 from collections import namedtuple
+import os
 
 import gspread
 from flask import Flask, render_template, request
@@ -11,12 +12,19 @@ OrganizeData = namedtuple(
                      'detail'])
 
 
+CRED_FILENAME = 'google-credentials.json'
+
+
 def create_app():
     app = Flask(__name__)
 
-    # generate credentials.json using env vars
-    create_cred()
-    gc = gspread.service_account(filename='credentials.json')
+    # generate credentials using env vars
+    # check to see if credentials file exist, if not, run
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    if CRED_FILENAME not in os.listdir(dir_path):
+        create_cred()
+
+    gc = gspread.service_account(filename=CRED_FILENAME)
     sheet = gc.open_by_key('1zcMeOqeNeX0aeY807KESo2Ytq3sIaeCiKWfWOXRfbDQ')
     useable_data = sheet.get_worksheet(0).get_all_values()[5:]
 
