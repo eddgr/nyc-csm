@@ -4,7 +4,7 @@ import os
 import gspread
 from flask import Flask, render_template, request
 
-from generate_credentials import create_cred
+from generate_credentials import check_credentials, CREDENTIAL_FILENAME
 
 
 OrganizeData = namedtuple(
@@ -12,19 +12,12 @@ OrganizeData = namedtuple(
                      'detail'])
 
 
-CRED_FILENAME = 'google-credentials.json'
-
-
 def create_app():
     app = Flask(__name__)
 
-    # generate credentials using env vars
-    # check to see if credentials file exist, if not, run
-    dir_path = os.path.dirname(os.path.realpath(__file__))
-    if CRED_FILENAME not in os.listdir(dir_path):
-        create_cred()
+    check_credentials()
 
-    gc = gspread.service_account(filename=CRED_FILENAME)
+    gc = gspread.service_account(filename=CREDENTIAL_FILENAME)
     sheet = gc.open_by_key('1zcMeOqeNeX0aeY807KESo2Ytq3sIaeCiKWfWOXRfbDQ')
     useable_data = sheet.get_worksheet(0).get_all_values()[5:]
 

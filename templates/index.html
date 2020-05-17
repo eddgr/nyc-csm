@@ -1,7 +1,8 @@
 {% extends "layout.html" %}
 {% block content %}
 {% for market in data %}
-<div class="card mb-2" data-name="hero" data-market="{{ market.en_name }}">
+<div class="card mb-2" data-name="hero" data-market="{{ market.en_name }}"
+     onclick="showDetails(this)">
   <div class="card-body row align-items-center justify-content-between">
     <div class="col-8">
       <div class="card-title">{{ market.cn_name }}</div>
@@ -17,7 +18,10 @@
     </div>
   </div>
 </div>
-<div class="card mb-2 bg-light d-flex text-center align-items-center justify-content-center" data-name="detail" data-market="{{ market.en_name }}" style="display: none !important">
+<div class="card mb-2 bg-light d-flex text-center align-items-center justify-content-center"
+     data-name="detail" data-market="{{ market.en_name }}"
+     style="display: none !important"
+     onclick="showDetails(this, isDetail=true)">
   {% if market.detail == '' %}
   没有信息。<br />
   No additional details.

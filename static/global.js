@@ -1,24 +1,13 @@
-const hideShowCard = () => {
-  const displayedCards = document.querySelectorAll('[data-name=hero]');
-  const detailCards = document.querySelectorAll('[data-name=detail]');
-  displayedCards.forEach(card => {
-    card.addEventListener('click', event => {
-      const currentCard = event.currentTarget;
-      const currentMarket = currentCard.dataset.market;
-      const detailCard = document.querySelector(`[data-market='${currentMarket}'][data-name=detail]`);
-      detailCard.style.display = 'block';
-      currentCard.style.display = 'none';
-    });
-  });
-  detailCards.forEach(card => {
-    card.addEventListener('click', event => {
-      const currentCard = event.currentTarget;
-      const currentMarket = currentCard.dataset.market;
-      const heroCard = document.querySelector(`[data-market='${currentMarket}'][data-name=hero]`);
-      heroCard.style.display = 'flex';
-      currentCard.style.cssText = 'display: none !important';
-    });
-  });
+const showDetails = (event, isDetail=false) => {
+  const currentCard = event;
+  const currentMarket = currentCard.dataset.market;
+  if (isDetail) {
+    const detailCard = document.querySelector(`[data-market='${currentMarket}'][data-name=hero]`);
+    detailCard.style.display = 'flex';
+    currentCard.style.cssText = 'display: none !important';
+  } else {
+    const detailCard = document.querySelector(`[data-market='${currentMarket}'][data-name=detail]`);
+    detailCard.style.display = 'block';
+    currentCard.style.display = 'none';
+  }
 }
-
-document.addEventListener('DOMContentLoaded', () => hideShowCard());
