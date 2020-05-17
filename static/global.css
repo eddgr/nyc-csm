@@ -1,0 +1,22 @@
+* {
+  font-size: 14px;
+}
+.status-btn {
+  width: 160px;
+  font-size: 10px;
+}
+.fs-12 {
+  font-size: 12px;
+}
+.card {
+  height: 160px;
+}
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+}
+.container {
+  margin-bottom: 48px;
+}

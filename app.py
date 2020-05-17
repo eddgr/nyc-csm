@@ -1,7 +1,7 @@
 from collections import namedtuple
 
 import gspread
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 
 OrganizeData = namedtuple(
@@ -9,11 +9,9 @@ OrganizeData = namedtuple(
                      'detail'])
 
 
-app = Flask(__name__)
+def create_app():
+    app = Flask(__name__)
 
-
-@app.route('/')
-def index():
     gc = gspread.service_account(filename='credentials.json')
     sheet = gc.open_by_key('1zcMeOqeNeX0aeY807KESo2Ytq3sIaeCiKWfWOXRfbDQ')
     useable_data = sheet.get_worksheet(0).get_all_values()[5:]
@@ -26,4 +24,27 @@ def index():
 
     formatted_data = [OrganizeData(*market) for market in clean_data]
 
-    return render_template('index.html', data=formatted_data)
+    @app.route('/')
+    def index():
+        return render_template('index.html', data=formatted_data)
+
+    @app.route('/search', methods=('GET', 'POST'))
+    def search():
+        if request.method == 'POST':
+            search_results = []
+            search_input = request.form.get('search-input')
+
+            for data in formatted_data:
+                if search_input.lower() in data.en_name.lower() or (
+                        search_input in data.cn_name):
+                    search_results.append(data)
+            if len(search_results) > 0:
+                return render_template('index.html', data=search_results)
+            return render_template('search.html', search=search_input)
+        return render_template('index.html', data=formatted_data)
+
+    return app
+
+
+if __name__ == '__main__':
+    create_app()
