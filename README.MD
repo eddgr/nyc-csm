@@ -9,14 +9,22 @@ The purpose of this project is to make the information from the spreadsheet aces
 
 This project is open source so feel free to submit your pull requests!
 
+You can view the current project here: https://nyccsm.herokuapp.com
+
 # Tech Stack
 Currently keeping the project simple and using Flask.
 
 # Getting Started
 If you plan to use this locally, you will need to create credentials in Google API Console. You can follow these steps: https://gspread.readthedocs.io/en/latest/oauth2.html
 
-I have named the credential file `credentials.json`. Once you have yours, you can save it in the project folder.
+I have named the credential file `google-credentials.json`. Once you have yours, you can save it in the project folder.
 
 Then run `pip install -r requirements.txt`. You will need Python 2.7+ to use the `gspread` library.
 
 Then you can run the app using `./run_remote.sh`.
+
+# To Do
+- Add latest update date
+- Add filter by area
+- Add link to supermarket address via Google Maps
+- Update translations where necessary
