@@ -3,6 +3,8 @@ from collections import namedtuple
 import gspread
 from flask import Flask, render_template, request
 
+from generate_credentials import create_cred
+
 
 OrganizeData = namedtuple(
     'OrganizeData', ['cn_name', 'en_name', 'address', 'area', 'status',
@@ -12,6 +14,8 @@ OrganizeData = namedtuple(
 def create_app():
     app = Flask(__name__)
 
+    # generate credentials.json using env vars
+    create_cred()
     gc = gspread.service_account(filename='credentials.json')
     sheet = gc.open_by_key('1zcMeOqeNeX0aeY807KESo2Ytq3sIaeCiKWfWOXRfbDQ')
     useable_data = sheet.get_worksheet(0).get_all_values()[5:]
