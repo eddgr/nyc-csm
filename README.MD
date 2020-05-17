@@ -23,8 +23,12 @@ Then run `pip install -r requirements.txt`. You will need Python 2.7+ to use the
 
 Then you can run the app using `./run_remote.sh`.
 
+# Deployment
+If you plan to deploy this project without pushing your credentials, I created a function to create one if it doesn't exist using the environment variable `GOOGLE_CREDENTIALS`. 
+
+Simply copy your credential json file and assign it to that variable. Look at `generate_credentials.py` for more details.
+
 # To Do
 - Add latest update date
-- Add filter by area
 - Add link to supermarket address via Google Maps
 - Update translations where necessary

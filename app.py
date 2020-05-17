@@ -42,8 +42,19 @@ def create_app():
     def inject_options():
         return dict(options=formatted_area)
 
-    @app.route('/')
+    @app.route('/', methods=('GET', 'POST'))
     def index():
+        if request.method == 'POST':
+            filter_value = request.form.get('filter-value')
+
+            if filter_value == 'All':
+                results = formatted_data
+            else:
+                results = [data for data in formatted_data
+                           if filter_value in data.area]
+
+            return render_template('index.html', data=results,
+                                   filterValue=filter_value)
         return render_template('index.html', data=formatted_data)
 
     @app.route('/search', methods=('GET', 'POST'))
@@ -62,19 +73,6 @@ def create_app():
             return render_template('search.html', search=search_input)
 
         return render_template('index.html', data=formatted_data)
-
-    @app.route('/filter', methods=('POST',))
-    def filter():
-        filter_value = request.form.get('filter-value')
-
-        if filter_value == 'All':
-            results = formatted_data
-        else:
-            results = [data for data in formatted_data
-                       if filter_value in data.area]
-
-        return render_template('index.html', data=results,
-                               filterValue=filter_value)
 
     return app
 
