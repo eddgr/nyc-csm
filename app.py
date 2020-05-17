@@ -12,6 +12,14 @@ OrganizeData = namedtuple(
                      'detail'])
 
 
+def _unique_list(raw_list):
+    unique_list = []
+    for list_item in raw_list:
+        if list_item not in unique_list:
+            unique_list.append(list_item)
+    return unique_list
+
+
 def create_app():
     app = Flask(__name__)
 
@@ -28,6 +36,11 @@ def create_app():
     clean_data = raw_clean_data[:-13]
 
     formatted_data = [OrganizeData(*market) for market in clean_data]
+    formatted_area = _unique_list([market.area for market in formatted_data])
+
+    @app.context_processor
+    def inject_options():
+        return dict(options=formatted_area)
 
     @app.route('/')
     def index():
@@ -36,17 +49,32 @@ def create_app():
     @app.route('/search', methods=('GET', 'POST'))
     def search():
         if request.method == 'POST':
-            search_results = []
             search_input = request.form.get('search-input')
 
+            search_results = []
             for data in formatted_data:
                 if search_input.lower() in data.en_name.lower() or (
                         search_input in data.cn_name):
                     search_results.append(data)
+
             if len(search_results) > 0:
                 return render_template('index.html', data=search_results)
             return render_template('search.html', search=search_input)
+
         return render_template('index.html', data=formatted_data)
+
+    @app.route('/filter', methods=('POST',))
+    def filter():
+        filter_value = request.form.get('filter-value')
+
+        if filter_value == 'All':
+            results = formatted_data
+        else:
+            results = [data for data in formatted_data
+                       if filter_value in data.area]
+
+        return render_template('index.html', data=results,
+                               filterValue=filter_value)
 
     return app
 

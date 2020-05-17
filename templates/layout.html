@@ -20,6 +20,21 @@
         <input type="submit" value="找 Search" class="btn btn-primary" />
       </form>
 
+      <div class="text-center mr-2 mb-2">看一只地方 Show only these areas</div>
+      <form method="POST" action="/filter" class="form-inline mb-4">
+        <select id="filter-value" name="filter-value"
+                                  onchange="this.form.submit()"
+                                  class="custom-select col">
+          <option {% if not filterValue %}selected{% endif %} value="All">所有地方 All areas</option>
+          {% for option in options %}
+          <option value="{{ option }}" {% if filterValue == option %}selected{% endif %}>{{ option }}</option>
+          {% endfor %}
+        </select>
+        <noscript>
+          <input type="submit" value="Filter" class="btn btn-warning ml-2">
+        </noscript>
+      </form>
+
       {% block content %}
       {% endblock %}
 
