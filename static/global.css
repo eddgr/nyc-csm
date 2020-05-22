@@ -1,11 +1,15 @@
 * {
   font-size: 14px;
 }
-.status-btn {
-  width: 160px;
+.status-btn, .status-btn a {
+  max-width: 160px;
+  width: 100%;
   font-size: 10px;
 }
-.fs-12 {
+.status-btn a {
+  display: block;
+}
+.fs-12, .fs-12 a {
   font-size: 12px;
 }
 .card {

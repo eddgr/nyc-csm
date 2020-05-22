@@ -1,5 +1,5 @@
 const showDetails = (event, isDetail=false) => {
-  const currentCard = event;
+  const currentCard = event.currentTarget.closest('[data-market]');
   const currentMarket = currentCard.dataset.market;
   if (isDetail) {
     const detailCard = document.querySelector(`[data-market='${currentMarket}'][data-name=hero]`);
