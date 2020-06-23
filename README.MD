@@ -9,7 +9,7 @@ The purpose of this project is to make the information from the spreadsheet aces
 
 This project is open source so feel free to submit your pull requests!
 
-You can view the current project here: https://nyccsm.herokuapp.com
+You can view the current project here: https://kaimenmanyc.com
 
 # Tech Stack
 Currently keeping the project simple and using Flask.
@@ -30,5 +30,4 @@ Simply copy your credential json file and assign it to that variable. Look at `g
 
 # To Do
 - Add latest update date
-- Add link to supermarket address via Google Maps
 - Update translations where necessary

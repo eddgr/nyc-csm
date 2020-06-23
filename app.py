@@ -25,7 +25,9 @@ def create_app():
 
     check_credentials()
 
-    gc = gspread.service_account(filename=CREDENTIAL_FILENAME)
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+
+    gc = gspread.service_account(filename=dir_path + '/' + CREDENTIAL_FILENAME)
     sheet = gc.open_by_key('1zcMeOqeNeX0aeY807KESo2Ytq3sIaeCiKWfWOXRfbDQ')
     useable_data = sheet.get_worksheet(0).get_all_values()[5:]
 

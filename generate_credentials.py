@@ -3,14 +3,14 @@ import os
 
 CREDENTIAL_FILENAME = 'google-credentials.json'
 
+DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 
 def check_credentials():
     """
     Check to see if credentials file exist, if not, run and generate
     credentials using env vars.
     """
-    dir_path = os.path.dirname(os.path.realpath(__file__))
-    if CREDENTIAL_FILENAME not in os.listdir(dir_path):
+    if CREDENTIAL_FILENAME not in os.listdir(DIR_PATH):
         try:
             _create_credentials()
         except:
@@ -22,7 +22,7 @@ def _envget(key, default=None):
 
 
 def _create_credentials():
-    with open(CREDENTIAL_FILENAME, 'w') as credential_file:
+    with open(DIR_PATH + '/' + CREDENTIAL_FILENAME, 'w') as credential_file:
         credential_file.write(_envget('GOOGLE_CREDENTIALS'))
         credential_file.close()
 
